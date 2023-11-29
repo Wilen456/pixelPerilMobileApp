@@ -1,12 +1,12 @@
 # Pixel Peril
 The purpose of **Pixel Peril** is a fun game that can help you destress! The purpose of our game is a time waster that gives the user instant gratification.
 # Function
-Our app is a game. The funt
+Our app is a game. The function of the game is to survive as long as possible. The user will continue to progress to new levels and unlock new maps the longer they survive. Another unique feature of the game is creating custom loadouts and character customization.
 # How to Use the App
 ## Home Screen
-When you open the app, you are automatically taken to the home screen. There are buttons for the store, loadout, and starting the game. Each button will take you to a different page.
+When the user opens the app, they are automatically taken to the home screen. There are buttons for the store, loadout, and starting the game. Each button will take them to a different page.
 ### Store
-The store contains all items up for purchase that you can use in the game or just to update your character.
+The store contains all items up for purchase that can be used in the game or just to update your character.
 ### Loadout Page
 The loadout page contains all of the equipment you've bought and gives you the opportunity to choose what your character will look like before entering the game.
 ## Starting the Game
