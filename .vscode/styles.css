@@ -8,6 +8,15 @@
 * {
     font-family: Pixeboy;
 }
+.large {
+    font-size: xx-large;
+}
+
+.sky {
+    background-image: "/images/homescreen background.jpeg";
+    background-color: #cccccc;
+    background-repeat: repeat;
+   }
 
 body {
     font-family: 'Arial', sans-serif;
