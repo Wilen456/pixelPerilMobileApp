@@ -36,4 +36,18 @@ p {
     padding: 10px 20px;
     text-decoration: none;
     border-radius: 5px;
+
+    
+}
+.play-button {
+    fill: linear-gradient(182deg, #4E9804 1.58%, #F0E600 98.17%);
+    stroke-width: 0.25px;
+    stroke: #000;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)); /*Works*/
+}
+
+.center {
+        margin: auto;
+        width: 50%;
+        padding: 10px;
 }
