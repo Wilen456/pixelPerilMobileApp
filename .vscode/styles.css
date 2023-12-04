@@ -1,5 +1,14 @@
 /* styles.css */
 
+@font-face {
+    font-family: Pixeboy;
+    src: "Pixeboy.ttf"
+   }
+
+* {
+    font-family: Pixeboy;
+}
+
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
