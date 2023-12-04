@@ -1,0 +1,15 @@
+:root {
+    --title-font-family: "Pixeboy-Regular", Helvetica;
+    --title-font-weight: 400;
+    --title-font-size: 100px;
+    --title-letter-spacing: 0px;
+    --title-line-height: normal;
+    --title-font-style: normal;
+    --label-font-family: "Pixeboy-Regular", Helvetica;
+    --label-font-weight: 400;
+    --label-font-size: 40px;
+    --label-letter-spacing: 0px;
+    --label-line-height: normal;
+    --label-font-style: normal;
+  }
+  
