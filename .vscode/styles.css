@@ -17,7 +17,8 @@
 }
 
 .sky {
-    background: url(/images/homescreen\ background.jpeg);
+    /*Need to add media breakpoints for background*/
+    background: url(/images/background.png);
     background-color: #cccccc;
    }
 
