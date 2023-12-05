@@ -13,9 +13,8 @@
 }
 
 .sky {
-    background-image: "/images/homescreen background.jpeg";
+    background: url(/images/homescreen\ background.jpeg);
     background-color: #cccccc;
-    background-repeat: repeat;
    }
 
 body {
@@ -46,7 +45,9 @@ h1 {
 p {
     color: #666;
 }
-
+.back-button {
+    background-color: transparent;
+}
 .cta-button {
     display: inline-block;
     background-color: #4CAF50;
