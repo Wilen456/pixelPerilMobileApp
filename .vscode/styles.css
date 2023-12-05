@@ -9,7 +9,11 @@
     font-family: Pixeboy;
 }
 .large {
-    font-size: xx-large;
+    font-size: 80px
+}
+
+.x-large {
+    font-size: 120px;
 }
 
 .sky {
