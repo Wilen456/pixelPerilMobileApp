@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings Page</title>
+</head>
+<body>
+    <div id="mutebut">
+        <button type="button" id="soundbutton">Mute 🔇</button>
+      </div>
+      <audio controls id="sound" autoplay src="audio/Stardew Valley OST - Summer (Nature's Crescendo).mp3"/>
+    <script>
+        const sound = document.getElementById('sound');
+
+document.getElementById("soundbutton").addEventListener("click", function() {
+  this.textContent = this.textContent === "Mute 🔇" ? "Unmute 🔈" : "Mute 🔇"; // change this to image.src if you have one
+  sound.muted = !sound.muted;
+})
+    </script>
+<scr
+</body>
+</html>

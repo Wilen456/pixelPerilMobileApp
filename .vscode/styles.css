@@ -1,5 +1,27 @@
 /* styles.css */
 
+@font-face {
+    font-family: Pixeboy;
+    src: "Pixeboy.ttf"
+   }
+
+* {
+    font-family: Pixeboy;
+}
+.large {
+    font-size: 80px
+}
+
+.x-large {
+    font-size: 120px;
+}
+
+.sky {
+    /*Need to add media breakpoints for background*/
+    background: url(/images/Background.jpg);
+    background-color: #cccccc;
+   }
+
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
@@ -18,7 +40,6 @@ header {
 .container {
     max-width: 800px;
     margin: 2em auto;
-    padding: 0 1em;
 }
 
 h1 {
@@ -28,26 +49,15 @@ h1 {
 p {
     color: #666;
 }
-
-.cta-button {
-    display: inline-block;
-    background-color: #4CAF50;
-    color: #fff;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
-
-    
-}
-.play-button {
-    fill: linear-gradient(182deg, #4E9804 1.58%, #F0E600 98.17%);
-    stroke-width: 0.25px;
-    stroke: #000;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)); /*Works*/
+.back-button {
+    background-color: transparent;
+    border: none;
 }
 
 .center {
-        margin: auto;
-        width: 50%;
-        padding: 10px;
+    text-align: center;
+}
+
+.left {
+    margin-left: 10%;
 }
