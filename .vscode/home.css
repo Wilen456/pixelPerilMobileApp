@@ -1,5 +1,6 @@
 body {
-  background-image: url('img/bkgd.png');
+  background-image: url('/images/Background.jpg');
+  background-color: #d7a887;
 }
 
 .label {
