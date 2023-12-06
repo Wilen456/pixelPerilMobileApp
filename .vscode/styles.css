@@ -17,7 +17,6 @@
 }
 
 .sky {
-    /*Need to add media breakpoints for background*/
     background: url(/images/Background.jpg);
     background-color: #d7a887;
    }
