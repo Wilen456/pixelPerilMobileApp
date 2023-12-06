@@ -6,6 +6,15 @@ body {
     width: 348px;
     height: 204px;
   }
+
+  @font-face {
+    font-family: Pixeboy;
+    src: "Pixeboy.ttf"
+   }
+
+* {
+    font-family: Pixeboy;
+}
   
   .label .text-wrapper {
     position: fixed;
