@@ -1,3 +1,8 @@
+body {
+  background-image: url('img/bkgd.png');
+  background-repeat: no-repeat;
+}
+
 .label {
     width: 348px;
     height: 204px;
@@ -28,7 +33,22 @@
     position: fixed;
     width: 192px;
     height: 59px;
-    top: 0;
-    left: 0;
+    top: 300px;
+    left: 80px;
   }
   
+  .box .load-out {
+    position: fixed;
+    width: 192px;
+    height: 59px;
+    top: 371px;
+    left: 80px;
+  }
+
+  .box .store {
+    position: fixed;
+    width: 192px;
+    height: 59px;
+    top: 442px;
+    left: 80px;
+  }
