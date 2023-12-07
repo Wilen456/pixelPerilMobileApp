@@ -59,3 +59,13 @@ p {
 .left {
     margin-left: 10%;
 }
+
+#mutebut {
+    float: right;  
+}
+
+#control{
+    padding-top:15%;
+    margin-right:20%;
+    margin-left:20%;
+}

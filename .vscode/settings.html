@@ -3,21 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styleguide.css" />
     <title>Settings Page</title>
 </head>
-<body>
+<body class="sky">
+  <div class="left">
+    <a href="home.html"><button type="button" class="large back-button"><</button></a>
+</div>
+  <div class="center">
+    <h1 class = "x-large center">Settings</h1>
+</div>
+  <div id="control">
     <div id="mutebut">
         <button type="button" id="soundbutton">Mute 🔇</button>
       </div>
-      <audio controls id="sound" autoplay src="audio/Stardew Valley OST - Summer (Nature's Crescendo).mp3"/>
+      <audio controls id="sound" autoplay src="audio/Stardew Valley OST - Summer (Nature's Crescendo).mp3">
     <script>
         const sound = document.getElementById('sound');
+    
+  
 
 document.getElementById("soundbutton").addEventListener("click", function() {
   this.textContent = this.textContent === "Mute 🔇" ? "Unmute 🔈" : "Mute 🔇"; // change this to image.src if you have one
   sound.muted = !sound.muted;
 })
     </script>
-<scr
+</div>
 </body>
 </html>
