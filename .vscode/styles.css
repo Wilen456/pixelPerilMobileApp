@@ -1,8 +1,8 @@
 /* styles.css */
 
 @font-face {
-    font-family: Pixeboy;
-    src: "Pixeboy.ttf"
+    font-family: "Pixeboy";
+    src: url('fonts/Pixeboy.ttf')
    }
 
 * {
@@ -58,4 +58,14 @@ p {
 
 .left {
     margin-left: 10%;
+}
+
+#mutebut {
+    float: right;  
+}
+
+#control{
+    padding-top:15%;
+    margin-right:20%;
+    margin-left:20%;
 }
