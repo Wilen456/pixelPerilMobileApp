@@ -45,7 +45,7 @@ h1 {
 }
 
 p {
-    color: #666;
+    color: #333;
 }
 .back-button {
     background-color: transparent;
@@ -54,6 +54,7 @@ p {
 
 .center {
     text-align: center;
+    align-items: center;
 }
 
 .left {
@@ -68,4 +69,18 @@ p {
     padding-top:15%;
     margin-right:20%;
     margin-left:20%;
+}
+
+img.vert-move:hover {
+    -webkit-animation: mover 1s infinite  alternate;
+    animation: mover 1s infinite  alternate;
+}
+
+@-webkit-keyframes mover {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-10px); }
+}
+
+.medium {
+    font-size: 40px;
 }
