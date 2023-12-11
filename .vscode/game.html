@@ -1,228 +1,308 @@
 <script src="/node_modules/phaser/dist/phaser.min.js"></script>
-<script>
-    class GameScene extends Phaser.Scene {
-        constructor() {
-            super({ key: 'GameScene' });
-        }
 
-        preload() {
-            this.load.image('background', 'img/SnowyPlains.png');
-            this.load.audio('backgroundMusic', 'audio/Stardew Valley OST - Summer (Natures Crescendo).mp3');
-            this.load.spritesheet('player', 'img/player-sheet.png', {
-                frameWidth: 34,
-                frameHeight: 28
-            })
-            this.load.spritesheet('slime', 'img/slime-sheet.png', {
-                frameWidth: 19,
-                frameHeight: 27
-            })
-        }
-
-        create() {
-            this.add.image(0, 0, 'background').setOrigin(0, 0).setScale(2);
-            //this.slime = this.physics.add.sprite(200, 200, 'slime').setScale(2);
-            this.slimes = this.physics.add.group();
-            for (let i = 0; i < 10; i++) {
-                let x = Phaser.Math.Between(0, this.game.config.width);
-                let y = Phaser.Math.Between(0, this.game.config.height);
-                let slime = this.physics.add.sprite(x, y, 'slime').setScale(2);
-                this.slimes.add(slime);
+<body style="background-color: #33475b">
+    <script>
+        class GameScene extends Phaser.Scene {
+            constructor() {
+                super({ key: 'GameScene' });
             }
 
-            this.player = this.physics.add.sprite(100, 450, 'player').setScale(2)
-                .setCollideWorldBounds(true);
-            this.player.lastDirection = 'down';
+            preload() {
+                this.load.image('background', 'img/SnowyPlains.png');
+                this.load.svg('menu', 'img/menu.svg');
+                this.load.audio('backgroundMusic', 'audio/Stardew Valley OST - Summer (Natures Crescendo).mp3');
+                this.load.spritesheet('player', 'img/player-sheet.png', {
+                    frameWidth: 34,
+                    frameHeight: 28
+                })
+                this.load.spritesheet('slime', 'img/slime-sheet.png', {
+                    frameWidth: 20,
+                    frameHeight: 27
+                })
+            }
 
-            this.anims.create({
-                key: 'left',
-                frames: this.anims.generateFrameNumbers('player', { start: 19, end: 24 }),
-                frameRate: 10,
-                repeat: -1
-            });
-            this.anims.create({
-                key: 'right',
-                frames: this.anims.generateFrameNumbers('player', { start: 19, end: 24 }),
-                frameRate: 10,
-                repeat: -1
-            });
-            this.anims.create({
-                key: 'up',
-                frames: this.anims.generateFrameNumbers('player', { start: 25, end: 30 }),
-                frameRate: 10,
-                repeat: -1
-            });
-            this.anims.create({
-                key: 'down',
-                frames: this.anims.generateFrameNumbers('player', { start: 13, end: 18 }),
-                frameRate: 10,
-                repeat: -1
-            });
-            this.anims.create({
-                key: 'idle-down',
-                frames: this.anims.generateFrameNumbers('player', { start: 31, end: 34 }),
-                frameRate: 8,
-                repeat: -1
-            });
-            this.anims.create({
-                key: 'idle-up',
-                frames: this.anims.generateFrameNumbers('player', { start: 39, end: 42 }),
-                frameRate: 8,
-                repeat: -1
-            });
-            this.anims.create({
-                key: 'idle-right',
-                frames: this.anims.generateFrameNumbers('player', { start: 35, end: 38 }),
-                frameRate: 8,
-                repeat: -1
-            });
-            this.anims.create({
-                key: 'idle-left',
-                frames: this.anims.generateFrameNumbers('player', { start: 35, end: 38 }),
-                frameRate: 8,
-                repeat: -1
-            });
-            this.anims.create({
-                key: 'death',
-                frames: this.anims.generateFrameNumbers('player', { start: 43, end: 45 }),
-                frameRate: 3,
-                repeat: -1
-            });
+            create() {
+                let imageWidth = this.sys.game.config.width;
+                let imageHeight = this.sys.game.config.height;
 
-            this.anims.create({
-                key: 'slime-left',
-                frames: this.anims.generateFrameNumbers('slime', { start: 0, end: 2 }),
-                frameRate: 10,
-                repeat: -1
-            });
-            this.anims.create({
-                key: 'slime-right',
-                frames: this.anims.generateFrameNumbers('slime', { start: 3, end: 5 }),
-                frameRate: 10,
-                repeat: -1
-            });
+                let image1 = this.add.image(0, 0, 'background').setOrigin(0, 0);
+                //let image2 = this.add.image(imageWidth, 0, 'background').setOrigin(0, 0);
 
-            this.sound.play('backgroundMusic', {
-                loop: true,
-                volume: 0.5
-            });
+                image1.setDisplaySize(imageWidth, imageHeight);
+                //image2.setDisplaySize(imageWidth, imageHeight);
 
-            // Slime hitbox
-            this.physics.add.overlap(this.player, this.slimes, this.damagePlayer, null, this);
-            this.physics.add.collider(this.slimes, this.slimes);
+                this.slimes = this.physics.add.group();
+                for (let i = 0; i < 7; i++) {
+                    let x = Phaser.Math.Between(0, this.game.config.width);
+                    let y = Phaser.Math.Between(0, this.game.config.height);
+                    let slime = this.physics.add.sprite(x, y, 'slime').setScale(2);
+                    this.slimes.add(slime);
+                }
 
-
-
-
-            // Player hitbox
-            this.playerHitbox = this.physics.add.sprite(this.player.x, this.player.y, null);
-            this.playerHitbox.setSize(5, 5);
-            this.playerHitbox.visible = false;
-            this.weaponHitbox = this.physics.add.sprite(this.player.x, this.player.y, null);
-            this.weaponHitbox.setSize(25, 25); // Adjust size as needed
-            this.weaponHitbox.visible = false;
-            this.physics.add.overlap(this.weaponHitbox, this.slime, this.damageSlime, null, this);
-
-
-            // Enable keyboard input
-            this.cursors = this.input.keyboard.createCursorKeys();
-        }
-        update() {
-            // Check for arrow key input and move player accordingly
-            let moveX = 0;
-            let moveY = 0;
-            const speed = 150;
-
-            if (this.cursors.up.isDown) {
-                moveY = -1;
-                this.player.anims.play('up', true);
-                this.player.flipX = false;
-                this.player.lastDirection = 'up';
-            } else if (this.cursors.down.isDown) {
-                moveY = 1;
-                this.player.anims.play('down', true);
-                this.player.flipX = false;
+                this.player = this.physics.add.sprite(200, 450, 'player').setScale(2)
+                    .setCollideWorldBounds(true);
                 this.player.lastDirection = 'down';
-            } else {
-                this.player.body.setVelocityY(0);
+
+                this.anims.create({
+                    key: 'left',
+                    frames: this.anims.generateFrameNumbers('player', { start: 19, end: 24 }),
+                    frameRate: 10,
+                    repeat: -1
+                });
+                this.anims.create({
+                    key: 'right',
+                    frames: this.anims.generateFrameNumbers('player', { start: 19, end: 24 }),
+                    frameRate: 10,
+                    repeat: -1
+                });
+                this.anims.create({
+                    key: 'up',
+                    frames: this.anims.generateFrameNumbers('player', { start: 25, end: 30 }),
+                    frameRate: 10,
+                    repeat: -1
+                });
+                this.anims.create({
+                    key: 'down',
+                    frames: this.anims.generateFrameNumbers('player', { start: 13, end: 18 }),
+                    frameRate: 10,
+                    repeat: -1
+                });
+                this.anims.create({
+                    key: 'idle-down',
+                    frames: this.anims.generateFrameNumbers('player', { start: 31, end: 34 }),
+                    frameRate: 8,
+                    repeat: -1
+                });
+                this.anims.create({
+                    key: 'idle-up',
+                    frames: this.anims.generateFrameNumbers('player', { start: 39, end: 42 }),
+                    frameRate: 8,
+                    repeat: -1
+                });
+                this.anims.create({
+                    key: 'idle-right',
+                    frames: this.anims.generateFrameNumbers('player', { start: 35, end: 38 }),
+                    frameRate: 8,
+                    repeat: -1
+                });
+                this.anims.create({
+                    key: 'idle-left',
+                    frames: this.anims.generateFrameNumbers('player', { start: 35, end: 38 }),
+                    frameRate: 8,
+                    repeat: -1
+                });
+                this.anims.create({
+                    key: 'death',
+                    frames: this.anims.generateFrameNumbers('player', { start: 43, end: 45 }),
+                    frameRate: 3,
+                    repeat: -1
+                });
+
+                this.anims.create({
+                    key: 'slime-left',
+                    frames: this.anims.generateFrameNumbers('slime', { start: 1, end: 13 }),
+                    frameRate: 10,
+                    repeat: -1
+                });
+                this.anims.create({
+                    key: 'slime-right',
+                    frames: this.anims.generateFrameNumbers('slime', { start: 1, end: 13 }),
+                    frameRate: 10,
+                    repeat: -1
+                });
+
+                this.sound.play('backgroundMusic', {
+                    loop: true,
+                    volume: 0.5
+                });
+
+                // Slime hitbox
+                this.physics.add.overlap(this.player, this.slimes, this.damagePlayer, null, this);
+                this.physics.add.collider(this.slimes, this.slimes);
+
+                // Player hitbox
+                this.playerHitbox = this.physics.add.sprite(this.player.x, this.player.y, null);
+                this.playerHitbox.setSize(5, 5);
+                this.playerHitbox.visible = false;
+                this.weaponHitbox = this.physics.add.sprite(this.player.x, this.player.y, null);
+                this.weaponHitbox.setSize(25, 25); // Adjust size as needed
+                this.weaponHitbox.visible = false;
+                this.physics.add.overlap(this.weaponHitbox, this.slime, this.damageSlime, null, this);
+
+
+                var counter = 0;
+                var counterText = this.add.text(this.cameras.main.width / 2, 10, counter, { font: '32px Arial', fill: '#444' });
+                counterText.setBackgroundColor('#ccc');
+                this.time.addEvent({
+                    delay: 1000, // 1000 ms = 1 second
+                    callback: function () {
+                        counter++;
+                        var minutes = Math.floor(counter / 60);
+                        var seconds = counter - (minutes * 60);
+                        var timeString = (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+                        counterText.setText(timeString);
+                    },
+                    loop: true
+                });
+                this.add.image(counterText.x + counterText.width + 105, counterText.y, 'menu').setScale(0.08).setOrigin(0, 0.018)
+                    .setInteractive()
+                    //.on('pointerdown', () => window.location.href = 'home.html');
+                    .on('pointerdown', () => this.handleMenuClick());
+
+                // Create menu options
+                this.menuBackground = this.add.graphics();
+                this.menuBackground.fillStyle(0x808080, 1);
+                this.menuBackground.fillRoundedRect(100, 100, 200, 220, 20);
+                this.menuBackground.setVisible(false);
+
+                this.equipmentButton = this.add.text(150, 150, 'Equipment', { fill: '#0e0' })
+                    .setInteractive()
+                    .setVisible(false)
+                    .on('pointerdown', () => window.location.href = 'equipment.html');
+
+                this.settingsButton = this.add.text(150, 200, 'Settings', { fill: '#0e0' })
+                    .setInteractive()
+                    .setVisible(false)
+                    .on('pointerdown', () => window.location.href = 'settings.html');
+
+                this.quitButton = this.add.text(150, 250, 'Quit', { fill: '#0e0' })
+                    .setInteractive()
+                    .setVisible(false)
+                    .on('pointerdown', () => window.location.href = 'home.html');
+
+                let healthBar = this.add.graphics()
+                    .fillStyle(0x00bb00, 1)
+                    .fillRoundedRect(20, 10, 160, 15, 9);
+                let levelUpBar = this.add.graphics()
+                    .fillStyle(0x333333, 1)
+                    .fillRoundedRect(20, 26, 160, 8, 4);
+                let levelUpBar2 = this.add.graphics()
+                    .fillStyle(0xffff00, 1)
+                    .fillRoundedRect(20, 26, 80, 8, 4);
+
+                // Enable keyboard input
+                this.cursors = this.input.keyboard.createCursorKeys();
             }
-            if (this.cursors.left.isDown) {
-                moveX = -1;
-                this.player.anims.play('left', true);
-                this.player.flipX = true;
-                this.player.lastDirection = 'left';
-            } else if (this.cursors.right.isDown) {
-                moveX = 1;
-                this.player.anims.play('right', true);
-                this.player.flipX = false;
-                this.player.lastDirection = 'right';
-            } else {
-                this.player.body.setVelocityX(0);
-            }
-            if (!this.cursors.left.isDown && !this.cursors.right.isDown && !this.cursors.up.isDown && !this.cursors.down.isDown) {
-                this.player.anims.play('idle-' + this.player.lastDirection, true);
+            update() {
+                // Check for arrow key input and move player accordingly
+                let moveX = 0;
+                let moveY = 0;
+                const speed = 150;
+
+                if (this.cursors.up.isDown) {
+                    moveY = -1;
+                    this.player.anims.play('up', true);
+                    this.player.flipX = false;
+                    this.player.lastDirection = 'up';
+                } else if (this.cursors.down.isDown) {
+                    moveY = 1;
+                    this.player.anims.play('down', true);
+                    this.player.flipX = false;
+                    this.player.lastDirection = 'down';
+                } else {
+                    this.player.body.setVelocityY(0);
+                }
+                if (this.cursors.left.isDown) {
+                    moveX = -1;
+                    this.player.anims.play('left', true);
+                    this.player.flipX = true;
+                    this.player.lastDirection = 'left';
+                } else if (this.cursors.right.isDown) {
+                    moveX = 1;
+                    this.player.anims.play('right', true);
+                    this.player.flipX = false;
+                    this.player.lastDirection = 'right';
+                } else {
+                    this.player.body.setVelocityX(0);
+                }
+                if (!this.cursors.left.isDown && !this.cursors.right.isDown && !this.cursors.up.isDown && !this.cursors.down.isDown) {
+                    this.player.anims.play('idle-' + this.player.lastDirection, true);
+                }
+
+                //Pythagorean Theorem stuff
+                let velocity = new Phaser.Math.Vector2(moveX, moveY);
+                velocity.normalize();
+                velocity.scale(speed);
+                this.player.setVelocity(velocity.x, velocity.y);
+
+                // weaponHitbox movement
+                switch (this.player.lastDirection) {
+                    case 'left':
+                        this.weaponHitbox.x = this.player.x - 50;
+                        this.weaponHitbox.y = this.player.y;
+                        break;
+                    case 'right':
+                        this.weaponHitbox.x = this.player.x + 50;
+                        this.weaponHitbox.y = this.player.y;
+                        break;
+                    case 'up':
+                        this.weaponHitbox.x = this.player.x;
+                        this.weaponHitbox.y = this.player.y - 50;
+                        break;
+                    case 'down':
+                        this.weaponHitbox.x = this.player.x;
+                        this.weaponHitbox.y = this.player.y + 50;
+                        break;
+                }
+
+                this.playerHitbox.x = this.player.x;
+                this.playerHitbox.y = this.player.y;
+
+                // Enemy movement
+                this.slimes.getChildren().forEach(slime => {
+                    var angle = Phaser.Math.Angle.Between(slime.x, slime.y, this.player.x, this.player.y);
+                    slime.setVelocity(Math.cos(angle) * 45, Math.sin(angle) * 45);
+                    slime.anims.play('slime-left', true);
+                });
+
             }
 
-            //Pythagorean Theorem stuff
-            let velocity = new Phaser.Math.Vector2(moveX, moveY);
-            velocity.normalize();
-            velocity.scale(speed);
-            this.player.setVelocity(velocity.x, velocity.y);
-
-            // weaponHitbox movement
-            switch (this.player.lastDirection) {
-                case 'left':
-                    this.weaponHitbox.x = this.player.x - 50;
-                    this.weaponHitbox.y = this.player.y;
-                    break;
-                case 'right':
-                    this.weaponHitbox.x = this.player.x + 50;
-                    this.weaponHitbox.y = this.player.y;
-                    break;
-                case 'up':
-                    this.weaponHitbox.x = this.player.x;
-                    this.weaponHitbox.y = this.player.y - 50;
-                    break;
-                case 'down':
-                    this.weaponHitbox.x = this.player.x;
-                    this.weaponHitbox.y = this.player.y + 50;
-                    break;
+            damageSlime(weaponHitbox, slime) {
+                // Reset the position of the specific slime that was hit
+                slime.x = Phaser.Math.Between(0, this.game.config.width);
+                slime.y = Phaser.Math.Between(0, this.game.config.height);
             }
 
-            this.playerHitbox.x = this.player.x;
-            this.playerHitbox.y = this.player.y;
+            damagePlayer(slimeHitbox, playerHitbox) {
+                // Play death animation
+                //this.player.anims.play('death', false);
+            }
+            handleMenuClick = function () {
+                if (this.menuBackground.visible) {
+                    // Generously allow physics to continue existing
+                    this.physics.resume();
 
-            // Enemy movement
-            this.slimes.getChildren().forEach(slime => {
-                var angle = Phaser.Math.Angle.Between(slime.x, slime.y, this.player.x, this.player.y);
-                slime.setVelocity(Math.cos(angle) * 45, Math.sin(angle) * 45);
-            });
+                    // Hide menu options
+                    this.menuBackground.setVisible(false);
+                    this.equipmentButton.setVisible(false);
+                    this.settingsButton.setVisible(false);
+                    this.quitButton.setVisible(false);
+                } else {
+                    // Pause physics
+                    this.physics.pause();
+
+                    // Show menu options
+                    this.menuBackground.setVisible(true);
+                    this.equipmentButton.setVisible(true);
+                    this.settingsButton.setVisible(true);
+                    this.quitButton.setVisible(true);
+                }
+            }
         }
 
-        damageSlime(weaponHitbox, slime) {
-            // Reset the position of the specific slime that was hit
-            slime.x = Phaser.Math.Between(0, this.game.config.width);
-            slime.y = Phaser.Math.Between(0, this.game.config.height);
-        }
+        const config = {
+            type: Phaser.AUTO,
+            /* width: window.innerWidth - 40,
+            height: window.innerHeight - 20, */
+            width: 390,
+            height: 844,
+            // backgroundColor: '#2F7535', // Green background
+            backgroundColor: '#EEE', // Light background
+            physics: {
+                default: 'arcade'
+            },
+            scene: [GameScene]
+        };
 
-        damagePlayer(slimeHitbox, playerHitbox) {
-            // Play death animation
-            this.player.anims.play('death', false);
-        }
-    }
-
-    const config = {
-        type: Phaser.AUTO,
-        /* width: window.innerWidth - 40,
-        height: window.innerHeight - 20, */
-        width: 390,
-        height: 844,
-        // backgroundColor: '#2F7535', // Green background
-        backgroundColor: '#DDD', // Light background
-        physics: {
-            default: 'arcade'
-        },
-        scene: [GameScene]
-    };
-
-    const game = new Phaser.Game(config);
-</script>
+        const game = new Phaser.Game(config);
+    </script>
